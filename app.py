@@ -65,7 +65,7 @@ def create_row(args):
         except sqlite3.IntegrityError:
             return f"<p>Incorrect phone number.<p> <p>Phone number length 10 symbols, get {len(args['phone_value'])}<p>"
     else:
-        return f'<p>Incorrect phone number.<p> <p>Enter numbers.<p>'
+        return '<p>Incorrect phone number.<p> <p>Enter numbers.<p>'
 
 
 @app.route('/phones/read/<int:key>')

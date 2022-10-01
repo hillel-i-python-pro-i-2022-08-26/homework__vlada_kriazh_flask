@@ -71,12 +71,15 @@ def create_row(args):
 @app.route('/phones/read/<int:key>')
 def read_row(key: int):
     key = key
-    with connection_db.DBConnection(DB_PATH) as conn:
-        result = conn.execute('''
-                SELECT *
-                FROM phones
-                WHERE phone_ID = :key''', {'key': key}).fetchone()
-    return f'{result[0]} {result[1]} {result[2]}'
+    try:
+        with connection_db.DBConnection(DB_PATH) as conn:
+            result = conn.execute('''
+                    SELECT *
+                    FROM phones
+                    WHERE phone_ID = :key''', {'key': key}).fetchone()
+        return f'{result[0]} {result[1]} {result[2]}'
+    except TypeError:
+        return 'Incorrect key'
 
 
 @app.route('/phones/update/<int:key>')
@@ -121,7 +124,7 @@ def updating_row(args, key: int):
 
 
 @app.route('/phones/delete/<int:key>')
-def delete_row(key):
+def delete_row(key: int):
     key = key
     with connection_db.DBConnection(DB_PATH) as conn:
         with conn:

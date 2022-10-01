@@ -121,6 +121,8 @@ def updating_row(args, key: int):
         return f'{result[0]} {result[1]} {result[2]}'
     except sqlite3.IntegrityError:
         return f"<p>Incorrect phone number.<p> <p>Phone number length 10 symbols, get {len(args['phone_value'])}<p>"
+    except TypeError:
+        return 'Incorrect key'
 
 
 @app.route('/phones/delete/<int:key>')
